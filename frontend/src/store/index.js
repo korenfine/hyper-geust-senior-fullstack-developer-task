@@ -15,8 +15,7 @@ export default createStore({
 		async login({ commit }, username) {
 			try {
 				const response = await axios.post(`/api/users/login/${username}`);
-				console.log(response.data);
-				commit("setUser", response.data); // assuming response.data is the user
+				commit("setUser", response.data);
 			} catch (error) {
 				console.error("Login failed:", error);
 				throw error;

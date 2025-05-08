@@ -11,8 +11,8 @@ export class InitialUserRoleSetup1680000000000 implements MigrationInterface {
                 CREATE TABLE IF NOT EXISTS users (
                     id INTEGER PRIMARY KEY AUTOINCREMENT,
                     username TEXT NOT NULL UNIQUE,
-                    role TEXT NOT NULL DEFAULT 'User',
-                    status TEXT NOT NULL DEFAULT ${UserStatusDto.ENABLED}
+                    role TEXT NOT NULL DEFAULT '${Roles.USER}',
+                    status TEXT NOT NULL DEFAULT '${UserStatusDto.ENABLED}'
                 )
             `);
 
