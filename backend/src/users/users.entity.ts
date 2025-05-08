@@ -1,4 +1,7 @@
 import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
+import { Roles } from "../dto/roles.dto";
+import { UserStatusDto } from "../dto/userStatus.dto";
+
 
 @Entity('users')
 export class User {
@@ -8,9 +11,15 @@ export class User {
   @Column({ unique: true })
   username: string;
 
-  @Column({ default: 'User' }) // ❌ Single role only
-  role: string;
+  @Column({
+    type: 'text',
+    transformer: {
+      to: (value: Roles[]) => JSON.stringify(value),
+      from: (value: Roles) => JSON.parse(value),
+    },
+  })
+  role: Roles[];
 
   @Column()
-  status: boolean;
+  status: UserStatusDto;
 }

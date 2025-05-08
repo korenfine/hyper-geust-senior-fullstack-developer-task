@@ -1,6 +1,17 @@
 <template>
-	<div>
+	<div class="editor">
 		<h1>Editors Page</h1>
-		<p>Welcome</p>
-	</div>
+    <WelcomeTitle />
+  </div>
 </template>
+
+<script setup lang="ts">
+  import WelcomeTitle from "../components/WelcomeTitle.vue";
+</script>
+
+<style scoped>
+.editor {
+  padding: 2rem;
+  text-align: center;
+}
+</style>

@@ -1,4 +1,6 @@
 import { MigrationInterface, QueryRunner } from 'typeorm';
+import {UserStatusDto} from "../dto/userStatus.dto";
+import {Roles} from "../dto/roles.dto";
 
 export class InitialUserRoleSetup1680000000000 implements MigrationInterface {
   name = 'InitialUserRoleSetup1680000000000';
@@ -10,15 +12,15 @@ export class InitialUserRoleSetup1680000000000 implements MigrationInterface {
                     id INTEGER PRIMARY KEY AUTOINCREMENT,
                     username TEXT NOT NULL UNIQUE,
                     role TEXT NOT NULL DEFAULT 'User',
-                    status INTEGER NULL
+                    status TEXT NOT NULL DEFAULT ${UserStatusDto.ENABLED}
                 )
             `);
 
       await queryRunner.query(`
                 INSERT OR IGNORE INTO users (username, role, status) VALUES
-                ('admin_user', 'Admin', 1),
-                ('regular_user', 'User', 1),
-                ('editor_user', 'Editor', 1)
+                ('admin_user', '["${Roles.ADMIN}"]', '${UserStatusDto.ENABLED}'),
+                ('regular_user', '["${Roles.USER}"]', '${UserStatusDto.ENABLED}'),
+                ('editor_user', '["${Roles.EDITOR}"]', '${UserStatusDto.DELETED}')
             `);
     } catch (error) {
       console.error('Migration up error:', error);

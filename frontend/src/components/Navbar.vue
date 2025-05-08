@@ -1,11 +1,30 @@
 <template>
-	<nav class="navbar">
-		<router-link to="/" class="hover:text-gray-300">Login</router-link>
-		<router-link to="/home" class="hover:text-gray-300">Home</router-link>
-		<router-link to="/admin" class="hover:text-gray-300">Admin</router-link>
-		<router-link to="/editor" class="hover:text-gray-300">Editor</router-link>
-	</nav>
+  <v-app-bar app>
+    <v-btn to="/" text>Login</v-btn>
+
+    <v-btn to="/home" text>Home</v-btn>
+
+    <v-btn v-if="isAdmin()" to="/admin" text>Admin</v-btn>
+
+    <v-btn v-if="isAdmin() || isEditor()" to="/editor" text>Editor</v-btn>
+  </v-app-bar>
 </template>
+
+<script setup>
+import { ref } from "vue"
+import { useStore } from "vuex"
+
+const store = useStore()
+const user = ref(store.state.user)
+
+function isAdmin() {
+  return user.value?.role.includes('admin')
+}
+
+function isEditor() {
+  return user.value?.role.includes('editor')
+}
+</script>
 
 <style scoped>
 .navbar {

@@ -1,12 +1,13 @@
 <template>
 	<div class="home">
 		<h1>Home Page</h1>
-		<p>Welcome {{ username }}!</p>
+    <WelcomeTitle />
 	</div>
 </template>
 
 <script setup>
 import { ref } from "vue"
+import WelcomeTitle from "../components/WelcomeTitle.vue";
 
 const username = ref("")
 </script>
